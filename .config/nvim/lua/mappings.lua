@@ -129,6 +129,7 @@ map("n", "<leader>th", function()
         :find()
 end, { desc = "Pick custom colorscheme" })
 
+map("n", "<leader>fb", ":FzfLua buffers<cr>", { desc = "fzf find visited files" })
 map("n", "<leader>fo", ":FzfLua oldfiles<cr>", { desc = "fzf find visited files" })
 map("n", ";", ":FzfLua command_history<cr>", { desc = "fzf command history" })
 map("n", "<leader>fw", ":Telescope egrepify<cr>", { desc = "Live grep in current project" })

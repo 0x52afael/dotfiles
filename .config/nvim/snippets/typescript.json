@@ -1,0 +1,11 @@
+{
+  "Inline Arrow function": {
+    "prefix": "iaf",
+    "body": [
+      "(${2:args}) => {",
+      "  ${3:// code}",
+      "}"
+    ],
+    "description": "Inline Arrow function expression"
+  }
+}

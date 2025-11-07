@@ -75,7 +75,7 @@ return {
             cmdline = { enabled = true },
             completion = {
                 trigger = {
-                    show_on_blocked_trigger_characters = { " ", "\n", "\t","}","{",")","(" },
+                    show_on_blocked_trigger_characters = { " ", "\n", "\t", "}", "{", ")", "(", ">", "<" },
                 },
                 accept = { auto_brackets = { enabled = true } },
                 documentation = {
@@ -125,8 +125,8 @@ return {
                         score_offset = 100, -- Boost/penalize the score of the items
                     },
                     path = {
-                        min_keyword_length = 0,
-                        score_offset = 50,
+                        min_keyword_length = 1,
+                        score_offset = 91,
                     },
                     snippets = {
                         min_keyword_length = 0,
