@@ -123,6 +123,7 @@ return {
                     lsp = {
                         min_keyword_length = 0, -- Number of characters to trigger porvider
                         score_offset = 100, -- Boost/penalize the score of the items
+                        max_items = 15,
                     },
                     path = {
                         min_keyword_length = 1,
@@ -131,6 +132,7 @@ return {
                     snippets = {
                         min_keyword_length = 0,
                         score_offset = 90,
+                        max_items = 5
                     },
                     buffer = {
                         min_keyword_length = 3,

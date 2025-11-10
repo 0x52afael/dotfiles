@@ -4,8 +4,8 @@ vim.o.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.o.mouse = "a"
-vim.o.tabstop = 4 -- Number of spaces that a <Tab> counts for
-vim.o.shiftwidth = 4 -- Number of spaces to use for auto-indent
+vim.o.tabstop = 2 -- Number of spaces that a <Tab> counts for
+vim.o.shiftwidth = 2 -- Number of spaces to use for auto-indent
 vim.o.expandtab = true
 vim.o.winborder = "rounded"
 opt.hlsearch = true
