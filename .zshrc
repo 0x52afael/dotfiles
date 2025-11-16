@@ -7,8 +7,6 @@ setopt notify              # report the status of background jobs immediately
 setopt numericglobsort     # sort filenames numerically when it makes sense
 setopt promptsubst         # enable command substitution in prompt
 
-
-
 # ==========================
 # 🧠 Aliases
 # ==========================
@@ -18,6 +16,7 @@ alias ll="eza -l --icons --git"
 alias la="eza -a --icons --group-directories-first --color=always --git"
 alias tree="eza --tree --icons"
 alias lg="lazygit"
+alias gs="git status"
 
 # ==========================
 # ⚙️ Environment Variables
@@ -37,23 +36,26 @@ export PATH="$JAVA_HOME/bin:$PATH"
 # ==========================
 
 # --- NVM ---
-[ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$HOMEBREW_PREFIX/opt/nvm/nvm.sh"
-[ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \
-  \. "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm"
+if [[ "$(uname)" == "Darwin" ]]; then
+  # macOS
+  export LANG=sv_SE.UTF-8
+  export LC_ALL=sv_SE.UTF-8
+  export HOMEBREW_PREFIX="$(brew --prefix)"
+  [ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$HOMEBREW_PREFIX/opt/nvm/nvm.sh"
+  [ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \
+    \. "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm"
 
-# --- Autojump ---
-[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && \
-  . $(brew --prefix)/etc/profile.d/autojump.sh
+  [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && \
+    . $(brew --prefix)/etc/profile.d/autojump.sh
 
-# --- FZF Key Bindings ---
-if command -v fzf >/dev/null; then
-  # Make sure fzf shell integration is loaded
-  [[ -f "$(brew --prefix)/opt/fzf/shell/key-bindings.zsh" ]] && \
-    source "$(brew --prefix)/opt/fzf/shell/key-bindings.zsh"
+  if command -v fzf >/dev/null; then
+    # Make sure fzf shell integration is loaded
+    [[ -f "$(brew --prefix)/opt/fzf/shell/key-bindings.zsh" ]] && \
+      source "$(brew --prefix)/opt/fzf/shell/key-bindings.zsh"
 
   # Ctrl+R → Fuzzy search command history
   bindkey '^R' fzf-history-widget
-fi
+  fi
 
 # --- Autosuggestions ---
 if [ -f "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]; then
@@ -66,11 +68,19 @@ if [ -f "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.
 fi
 
 source ~/.zsh/fzf/themes/catppuccin-fzf-frappe.sh
+autoload -Uz +X compinit && compinit
+else
+  source .zsh/load-plugins.zsh
+fi
+
+# --- Autojump ---
+
+# --- FZF Key Bindings ---
+
 
 # ==========================
 # Completion
 # ==========================
-autoload -Uz +X compinit && compinit
 
 # case insensitive path-completion
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
