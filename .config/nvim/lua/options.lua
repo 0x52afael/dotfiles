@@ -3,6 +3,7 @@ vim.o.number = true
 vim.o.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
+opt.spelllang = {"en","sv"}
 vim.o.mouse = "a"
 vim.o.tabstop = 2 -- Number of spaces that a <Tab> counts for
 vim.o.shiftwidth = 2 -- Number of spaces to use for auto-indent

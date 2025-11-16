@@ -2,6 +2,7 @@ local options = {
   formatters_by_ft = {
     -- lua = { "stylua" },
     css = { "stylelint", "prettier" },
+    tex = {"latexindent"},
     html = { "prettierd" },
     python = { "ruff_format" },
     javascript = { "biome" },

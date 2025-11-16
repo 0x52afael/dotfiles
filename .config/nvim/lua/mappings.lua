@@ -314,6 +314,11 @@ map("n", "<S-Tab>", function()
     require("barbar.api").goto_buffer_relative(-1)
 end)
 
+map("n", "<localleader>ad", function()
+  local word = vim.fn.expand("<cword>")
+  vim.cmd("LTeXAddWord " .. word)
+end, { desc = "Add word under cursor to LTeX dictionary" })
+
 map("n", "<leader>ld", function()
     if vim.o.background == "light" then
         vim.o.background = "dark"

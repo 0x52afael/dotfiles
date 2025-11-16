@@ -1,0 +1,8 @@
+chatgpt
+discord
+firefox
+font-jetbrains-mono-nerd-font
+notchnook
+skim
+spotify
+wezterm@nightly

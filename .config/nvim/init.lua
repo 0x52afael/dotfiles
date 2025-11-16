@@ -5,6 +5,7 @@ vim.g.have_nerd_font = true
 require("options")
 require("lazy-bootstrap")
 require("lazy-plugins")
+require("configs.autocmd")
 require("mappings")
 require("configs.lspconfig")
 require("configs.colorscheme")
