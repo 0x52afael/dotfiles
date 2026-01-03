@@ -20,12 +20,17 @@ alias gs="git status"
 # ==========================
 # ⚙️ Environment Variables
 # ==========================
-
+export LSP_LTEXLS_JAVA_OPTS="--add-opens=java.xml/com.sun.org.apache.xerces.internal.impl=ALL-UNNAMED -Djdk.xml.totalEntitySizeLimit=0"
+export LANG=sv_SE.UTF-8
+export LC_ALL=sv_SE.UTF-8
+export HOMEBREW_PREFIX="$(brew --prefix)"
 export NVM_DIR="$HOME/.nvm"
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border"
 export EDITOR=nvim
 export ZSH_DISABLE_COMPFIX=true
 export KEYTIMEOUT=10
+export JAVA_HOME=$(/usr/libexec/java_home)
+export PATH="$JAVA_HOME/bin:$PATH"
 # ==========================
 # Plugins
 # ==========================
