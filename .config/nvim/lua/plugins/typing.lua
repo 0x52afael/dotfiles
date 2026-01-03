@@ -26,6 +26,7 @@ return {
         },
       })
       require("mini.bracketed").setup()
+      require("mini.move")
       require("mini.extra").setup()
       require("mini.clue").setup()
       require("mini.indentscope").setup()

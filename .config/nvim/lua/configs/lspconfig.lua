@@ -22,6 +22,7 @@ require("mason-tool-installer").setup({
     "marksman",
     "markdownlint",
     "ltex-ls-plus",
+    "jdtls",
   },
 })
 
@@ -39,6 +40,7 @@ local servers = {
   "jsonls",
   "tailwindcss",
   "lua_ls",
+  "jdtls",
   "marksman",
   "emmet_language_server",
   "ts_ls",

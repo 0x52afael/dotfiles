@@ -1,0 +1,9 @@
+{
+  "System out printf snippet": {
+    "prefix": "souf",
+    "body": [
+      "System.out.printf(\"% \n\", ${1:args});"
+    ],
+    "description": "System out printf snippet"
+  }
+}

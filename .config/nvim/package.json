@@ -6,9 +6,13 @@
         "language": [
           "javascript",
           "javascriptreact",
-          "typescriptreact"
+          "typescriptreact",
+          "java"
         ],
-        "path": "snippets/typescript.json"
+        "paths": [
+          "snippets/typescript.json",
+          "snippets/java.json"
+        ]
       }
     ]
   }

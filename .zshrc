@@ -28,8 +28,9 @@ export HOMEBREW_PREFIX="$(brew --prefix)"
 export NVM_DIR="$HOME/.nvm"
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border"
 export EDITOR=nvim
-export ZSH_DISABLE_COMPFIX=true
+# export ZSH_DISABLE_COMPFIX=true
 export JAVA_HOME=$(/usr/libexec/java_home)
+autoload -Uz compinit && compinit
 export PATH="$JAVA_HOME/bin:$PATH"
 # ==========================
 # Plugins
@@ -68,7 +69,6 @@ if [ -f "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.
 fi
 
 source ~/.zsh/fzf/themes/catppuccin-fzf-frappe.sh
-autoload -Uz +X compinit && compinit
 else
   source .zsh/load-plugins.zsh
 fi
