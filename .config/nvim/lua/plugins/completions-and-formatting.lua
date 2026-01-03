@@ -126,7 +126,7 @@ return {
                         max_items = 15,
                     },
                     path = {
-                        min_keyword_length = 1,
+                        min_keyword_length = 0,
                         score_offset = 91,
                     },
                     snippets = {
@@ -135,7 +135,7 @@ return {
                         max_items = 5
                     },
                     buffer = {
-                        min_keyword_length = 3,
+                        min_keyword_length = 0,
                         score_offset = 20,
                         max_items = 10,
                     },

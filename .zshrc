@@ -17,7 +17,6 @@ alias la="eza -a --icons --group-directories-first --color=always --git"
 alias tree="eza --tree --icons"
 alias lg="lazygit"
 alias gs="git status"
-
 # ==========================
 # ⚙️ Environment Variables
 # ==========================
@@ -26,6 +25,7 @@ export NVM_DIR="$HOME/.nvm"
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border"
 export EDITOR=nvim
 export ZSH_DISABLE_COMPFIX=true
+export KEYTIMEOUT=10
 # ==========================
 # Plugins
 # ==========================
@@ -65,10 +65,9 @@ fi
 source ~/.zsh/fzf/themes/catppuccin-fzf-frappe.sh
 autoload -Uz +X compinit && compinit
 else
-  source .zsh/load-plugins.zsh
+  source ~/.zsh/load-plugins.zsh
 fi
 
-# --- Autojump ---
 
 # --- FZF Key Bindings ---
 
@@ -125,6 +124,10 @@ bindkey -M viins '^ ' autosuggest-accept-word
 bindkey -M viins '^?' backward-delete-char
 bindkey -M viins '^H' backward-delete-char
 
+zle -N open_yazi
+bindkey '^[n' open_yazi
 
 # eval $(thefuck –alias)
 eval "$(zoxide init zsh)"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

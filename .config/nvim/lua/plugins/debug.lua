@@ -1,148 +1,241 @@
--- debug.lua
---
--- Shows how to use the DAP plugin to debug your code.
---
--- Primarily focused on configuring the debugger for Go, but can
--- be extended to other languages as well. That's why it's called
--- kickstart.nvim and not kitchen-sink.nvim ;)
-
 return {
-  -- NOTE: Yes, you can install new plugins here!
-  'mfussenegger/nvim-dap',
-  -- NOTE: And you can specify dependencies as well
-  dependencies = {
-    -- Creates a beautiful debugger UI
-    'rcarriga/nvim-dap-ui',
-
-    -- Required dependency for nvim-dap-ui
-    'nvim-neotest/nvim-nio',
-
-    -- Installs the debug adapters for you
-    'mason-org/mason.nvim',
-    'jay-babu/mason-nvim-dap.nvim',
-
-    -- Add your own debuggers here
-    'leoluz/nvim-dap-go',
-  },
-  keys = {
-    -- Basic debugging keymaps, feel free to change to your liking!
     {
-      '<F5>',
-      function()
-        require('dap').continue()
-      end,
-      desc = 'Debug: Start/Continue',
-    },
-    {
-      '<F1>',
-      function()
-        require('dap').step_into()
-      end,
-      desc = 'Debug: Step Into',
-    },
-    {
-      '<F2>',
-      function()
-        require('dap').step_over()
-      end,
-      desc = 'Debug: Step Over',
-    },
-    {
-      '<F3>',
-      function()
-        require('dap').step_out()
-      end,
-      desc = 'Debug: Step Out',
-    },
-    {
-      '<leader>b',
-      function()
-        require('dap').toggle_breakpoint()
-      end,
-      desc = 'Debug: Toggle Breakpoint',
-    },
-    {
-      '<leader>B',
-      function()
-        require('dap').set_breakpoint(vim.fn.input 'Breakpoint condition: ')
-      end,
-      desc = 'Debug: Set Breakpoint',
-    },
-    -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
-    {
-      '<F7>',
-      function()
-        require('dapui').toggle()
-      end,
-      desc = 'Debug: See last session result.',
-    },
-  },
-  config = function()
-    local dap = require 'dap'
-    local dapui = require 'dapui'
-
-    require('mason-nvim-dap').setup {
-      -- Makes a best effort to setup the various debuggers with
-      -- reasonable debug configurations
-      automatic_installation = true,
-
-      -- You can provide additional configuration to the handlers,
-      -- see mason-nvim-dap README for more information
-      handlers = {},
-
-      -- You'll need to check that you have the required things installed
-      -- online, please don't ask me how to install them :)
-      ensure_installed = {
-        -- Update this to ensure that you have the debuggers for the langs you want
-        'delve',
-      },
-    }
-
-    -- Dap UI setup
-    -- For more information, see |:help nvim-dap-ui|
-    dapui.setup {
-      -- Set icons to characters that are more likely to work in every terminal.
-      --    Feel free to remove or use ones that you like more! :)
-      --    Don't feel like these are good choices.
-      icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
-      controls = {
-        icons = {
-          pause = '⏸',
-          play = '▶',
-          step_into = '⏎',
-          step_over = '⏭',
-          step_out = '⏮',
-          step_back = 'b',
-          run_last = '▶▶',
-          terminate = '⏹',
-          disconnect = '⏏',
+        "mfussenegger/nvim-dap",
+        dependencies = {
+            "rcarriga/nvim-dap-ui",
+            "mfussenegger/nvim-dap-python",
+            "theHamsta/nvim-dap-virtual-text",
+            "nvim-neotest/nvim-nio",
+            -- Installs the debug adapters for you
+            "mason-org/mason.nvim",
+            "jay-babu/mason-nvim-dap.nvim",
         },
-      },
-    }
+        keys = {
+            {
+                mode = "n",
+                "<leader>dc",
+                function()
+                    require("dap").continue()
+                end,
+                desc = "Start/Continue Debugging" ,
+            },
+            {
+                mode = "n",
+                "<leader>do",
+                function()
+                    require("dap").step_over()
+                end,
+                 desc = "Step Over" ,
+            },
+            {
+                mode = "n",
+                "<leader>di",
+                function()
+                    require("dap").step_into()
+                end,
+                 desc = "Step Into" ,
+            },
+            {
+                mode = "n",
+                "<leader>dO",
+                function()
+                    require("dap").step_out()
+                end,
+                 desc = "Step Out" ,
+            },
+            {
+                mode = "n",
+                "<leader>db",
+                function()
+                    require("dap").toggle_breakpoint()
+                end,
+                 desc = "Toggle Breakpoint" ,
+            },
+            {
+                mode = "n",
+                "<leader>dB",
+                function()
+                    require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
+                end,
+                 desc = "Set Conditional Breakpoint" ,
+            },
 
-    -- Change breakpoint icons
-    -- vim.api.nvim_set_hl(0, 'DapBreak', { fg = '#e51400' })
-    -- vim.api.nvim_set_hl(0, 'DapStop', { fg = '#ffcc00' })
-    -- local breakpoint_icons = vim.g.have_nerd_font
-    --     and { Breakpoint = '', BreakpointCondition = '', BreakpointRejected = '', LogPoint = '', Stopped = '' }
-    --   or { Breakpoint = '●', BreakpointCondition = '⊜', BreakpointRejected = '⊘', LogPoint = '◆', Stopped = '⭔' }
-    -- for type, icon in pairs(breakpoint_icons) do
-    --   local tp = 'Dap' .. type
-    --   local hl = (type == 'Stopped') and 'DapStop' or 'DapBreak'
-    --   vim.fn.sign_define(tp, { text = icon, texthl = hl, numhl = hl })
-    -- end
+            {
+                mode = "n",
+                "<leader>7",
+                function()
+                    require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
+                end,
+                 desc = "Set Log Point" ,
+            },
+            {
+                mode = "n",
+                "<leader>8",
+                function()
+                    require("dap").terminate()
+                end,
+                 desc = "Terminate Debugging" ,
+            },
+            {
+                mode = "n",
+                "<leader>9",
+                function()
+                    require("dap").restart()
+                end,
+                 desc = "Restart Debugging" ,
+            },
+            {
+                mode = "n",
+                "<leader>on",
+                function()
+                    require("mini.notify").show_history()
+                end,
+                 desc = "Show MiniNotify history" ,
+            },
+            {
+                mode = { "n", "v" },
+                "<leader>dt",
+                function()
+                    require("dap-python").test_method()
+                end,
+                 desc = "Debug nearest test" ,
+            },
 
-    dap.listeners.after.event_initialized['dapui_config'] = dapui.open
-    dap.listeners.before.event_terminated['dapui_config'] = dapui.close
-    dap.listeners.before.event_exited['dapui_config'] = dapui.close
+            {
+                mode = { "n", "v" },
+                "<leader>dr",
+                function()
+                    require("dap").open({ reset = true })
+                end,
+                 noremap = true, desc = "Reload debugger UI" ,
+            },
+            {
+                mode = "n",
+                "<leader>77",
+                function()
+                    require("dapui").toggle()
+                end,
+                desc = "Debug: See last session result.",
+            },
+        },
+        config = function()
+            local dap = require("dap")
+            local dapui = require("dapui")
 
-    -- Install golang specific config
-    require('dap-go').setup {
-      delve = {
-        -- On Windows delve must be run attached or it crashes.
-        -- See https://github.com/leoluz/nvim-dap-go/blob/main/README.md#configuring
-        detached = vim.fn.has 'win32' == 0,
-      },
-    }
-  end,
+            require("mason-nvim-dap").setup({
+                -- Makes a best effort to setup the various debuggers with
+                -- reasonable debug configurations
+                automatic_installation = true,
+
+                -- You can provide additional configuration to the handlers,
+                -- see mason-nvim-dap README for more information
+                handlers = {},
+                ensure_installed = {
+                    -- Update this to ensure that you have the debuggers for the langs you want
+                    "debugpy",
+                },
+            })
+
+            dapui.setup({
+                windows = {
+                    indent = 1,
+                },
+                layouts = {
+                    {
+                        elements = {
+                            { id = "scopes", size = 0.33 },
+                            { id = "watches", size = 0.33 },
+                            { id = "repl", size = 0.33 },
+                            -- { id = "console", size = 0.34 },
+                        },
+                        position = "bottom",
+                        size = 15,
+                    },
+                },
+                mappings = {
+                    edit = "e",
+                    expand = { "<CR>", "<2-LeftMouse>" },
+                    open = "o",
+                    remove = "d",
+                    repl = "r",
+                    toggle = "t",
+                },
+            })
+
+            local dap_python = require("dap-python")
+            dap_python.setup("python3")
+            dap_python.test_runner = "pytest"
+            vim.fn.sign_define("DapBreakpoint", {
+                text = "",
+                texthl = "DapBreakpoint",
+                linehl = "",
+                numhl = "",
+            })
+
+            -- Change breakpoint icons
+            vim.api.nvim_set_hl(0, "DapBreak", { fg = "#e51400" })
+            vim.api.nvim_set_hl(0, "DapStop", { fg = "#ffcc00" })
+            local breakpoint_icons = vim.g.have_nerd_font
+                    and {
+                        Breakpoint = "",
+                        BreakpointCondition = "",
+                        BreakpointRejected = "",
+                        LogPoint = "",
+                        Stopped = "",
+                    }
+                or {
+                    Breakpoint = "●",
+                    BreakpointCondition = "⊜",
+                    BreakpointRejected = "⊘",
+                    LogPoint = "◆",
+                    Stopped = "⭔",
+                }
+            for type, icon in pairs(breakpoint_icons) do
+                local tp = "Dap" .. type
+                local hl = (type == "Stopped") and "DapStop" or "DapBreak"
+                vim.fn.sign_define(tp, { text = icon, texthl = hl, numhl = hl })
+            end
+
+            dap.listeners.after.event_initialized["dapui_config"] = dapui.open
+            dap.listeners.before.event_terminated["dapui_config"] = dapui.close
+
+            require("nvim-dap-virtual-text").setup({
+                commented = true,
+            })
+            dap.listeners.before.event_exited["dapui_config"] = dapui.close
+        end,
+    },
+    {
+        "nvim-neotest/neotest",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-neotest/nvim-nio",
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-neotest/neotest-jest",
+            "marilari88/neotest-vitest",
+            "nvim-neotest/neotest-python",
+            "rcasia/neotest-java",
+            "codymikol/neotest-kotlin",
+        },
+        config = function()
+            require("neotest").setup({
+                discovery = {
+                    enabled = false,
+                },
+                adapters = {
+                    require("neotest-java"),
+                    require("neotest-kotlin"),
+                    require("neotest-python")({
+                        dap = { justMyCode = false },
+                        python = "python3",
+                        runner = "pytest",
+                        pytest_discover_instances = true,
+                        is_test_file = function(file_path)
+                            return vim.startswith(file_path, "test_") or file_path:match("tests?/.*%.py$")
+                        end,
+                    }),
+                },
+            })
+        end,
+    },
 }

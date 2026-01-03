@@ -28,6 +28,7 @@ return {
             require("mini.bracketed").setup()
             require("mini.extra").setup()
             require("mini.clue").setup()
+            require("mini.move").setup()
             require("mini.indentscope").setup()
         end,
     },
