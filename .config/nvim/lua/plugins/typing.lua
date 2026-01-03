@@ -41,6 +41,29 @@ return {
     },
   },
   {
+
+    "echasnovski/mini.nvim",
+    version = false,
+    event = "VeryLazy",
+    config = function()
+      require("mini.surround").setup()
+      require("mini.ai").setup()
+      require("mini.pairs").setup()
+      require("mini.operators").setup({
+        exchange = {
+          prefix = "gX",
+
+          reindent_linewise = true,
+        },
+      })
+      require("mini.bracketed").setup()
+      require("mini.extra").setup()
+      require("mini.clue").setup()
+      require("mini.move").setup()
+      require("mini.indentscope").setup()
+    end,
+  },
+  {
     "windwp/nvim-ts-autotag",
     config = function()
       require("nvim-ts-autotag").setup({
@@ -81,6 +104,12 @@ return {
         }
       }
     end
-  }
+  },
+  {
+    "sindrets/diffview.nvim",
+    init = function()
+      require("diffview").setup()
+    end
+  },
 }
 -- vim: ts=2 sts=2 sw=2 et
